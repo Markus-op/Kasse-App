@@ -30,3 +30,18 @@
 @media(orientation:landscape) and (max-height:500px){.offer-image img{max-height:88px}.offer-card .quantity{gap:5px}.offer-card .offer-price{font-size:16px}.offer-card .quantity output{font-size:24px}.offer-card .multiplication{font-size:15px}.offer-actions{gap:10px}}
 @media(max-width:360px) and (orientation:portrait){.offer-card{grid-template-columns:36px minmax(0,1fr) auto;gap:4px}.offer-card.no-image{grid-template-columns:minmax(0,1fr) auto}.offer-card .quantity{gap:5px}.offer-card .offer-price{font-size:16px}.offer-amount{gap:2px}.offer-actions{gap:3px}.offer-card .multiplication{font-size:15px}}
 @media(orientation:portrait) and (max-height:560px){.offer-image img{max-height:40px}}
+
+/* A single, larger minus at the end; the rest of the offer adds one item. */
+.offer-description strong{font-size:clamp(17px,1.8vw,23px)}
+.offer-card .offer-price{font-size:clamp(19px,2.2vw,26px)}
+.offer-card .quantity output{font-size:clamp(26px,2.8vw,32px)}
+.offer-card .quantity-minus{width:42px;height:42px}
+.page-kasse .notes-button{font-size:17px}
+.note-field{margin-bottom:18px}.note-field>label{margin-bottom:7px}
+.note-field input,.note-field select,.note-field textarea{margin-top:0}
+.note-number{display:flex;align-items:stretch;gap:8px}.note-number input{flex:1;width:0}
+.note-number input::-webkit-inner-spin-button{appearance:none;margin:0}.note-number input{-moz-appearance:textfield}
+.note-stepper{display:grid;gap:3px}.note-stepper button{display:flex;align-items:center;justify-content:center;width:44px;min-height:30px;background:#dfeadd;border-radius:7px;color:var(--green)}
+@media(orientation:landscape){.offer-card .quantity{width:100%}.offer-actions{align-self:flex-end}.offer-card{container-type:inline-size}}
+@container(max-width:100px){.offer-card .offer-price{font-size:16px}.offer-card .quantity output{font-size:24px}.offer-card .offer-amount{gap:1px}.offer-description strong{font-size:16px}}
+@media(orientation:portrait) and (max-height:560px){.offer-card .quantity-minus{width:36px;height:32px}.offer-description strong{font-size:16px}}

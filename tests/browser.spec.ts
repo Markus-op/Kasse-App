@@ -64,6 +64,10 @@ test('notes only at top, numeric keyboard arrows never go below zero', async ({ 
   const input = page.getByLabel('Helfer', { exact: true });
   await input.fill('0'); await input.press('ArrowDown'); await expect(input).toHaveValue('0');
   await input.press('ArrowUp'); await expect(input).toHaveValue('1');
+  await page.getByRole('button', { name: 'Helfer erhöhen', exact: true }).click(); await expect(input).toHaveValue('2');
+  await page.getByRole('button', { name: 'Helfer verringern', exact: true }).click(); await expect(input).toHaveValue('1');
+  await page.getByRole('button', { name: 'Helfer verringern', exact: true }).click(); await expect(input).toHaveValue('0');
+  await expect(page.getByRole('button', { name: 'Helfer verringern', exact: true })).toBeDisabled();
   await input.fill('-3'); await expect(input).toHaveValue('0');
   await page.getByRole('button', { name: 'Speichern', exact: true }).click();
   await navigate(page, 'Verlauf');
@@ -233,7 +237,8 @@ test('offer taps add once and prominent minus only subtracts, never below zero',
   await expect(minus).toBeVisible(); await expect(minus).toBeDisabled();
   await row.locator('.offer-price').click(); await expect(count).toHaveText('1');
   await page.getByRole('button', { name: 'Nachos', exact: true }).click(); await expect(count).toHaveText('2');
-  await page.getByRole('button', { name: 'Nachos erhöhen', exact: true }).click(); await expect(count).toHaveText('3');
+  await expect(page.getByRole('button', { name: 'Nachos erhöhen', exact: true })).toHaveCount(0);
+  await row.locator('.offer-price').click(); await expect(count).toHaveText('3');
   await minus.click(); await expect(count).toHaveText('2');
   await minus.click(); await minus.click(); await expect(count).toHaveText('0');
   await expect(minus).toBeDisabled(); await expect(page.locator('.grand-total')).toContainText('0,00');
