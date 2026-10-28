@@ -37,7 +37,7 @@ Der Build erzeugt `dist/index.html` mit gehashten JavaScript-/CSS-Dateien, Bilde
 ## Optionen und Veranstaltungen
 
 - Die Listen **Angebote** und **Veranstaltungen** sowie jede Veranstaltung sind zunächst zugeklappt.
-- Angebote per Drag-and-drop oder mit den Pfeilen umsortieren. Auf Touchgeräten den Griff halten und auf die gewünschte Zeile ziehen. Angebote können deaktiviert, gelöscht oder ohne Bild angelegt werden. Bereits ausgewählte/verkaufte Positionen behalten ihren ursprünglichen Preis und Titel; Restmengen gelöschter Angebote bleiben in der Kasse entfernbar.
+- Angebote per Drag-and-drop umsortieren; eine sichtbare Vorschau folgt der Bewegung. Auf Touchgeräten den Griff halten und auf die gewünschte Zeile ziehen. Angebote können deaktiviert, gelöscht oder ohne Bild angelegt werden. Bereits ausgewählte/verkaufte Positionen behalten ihren ursprünglichen Preis und Titel; Restmengen gelöschter Angebote bleiben in der Kasse entfernbar.
 - Eine **Notizvorlage** gilt für neue Veranstaltungen. Bestehende Veranstaltungsnotizen behalten ihre damaligen Bezeichner, Typen und Werte.
 - Beim **Kassenschluss** das Löschdatum für diese Veranstaltung wählen. Vorgabe: Abschlusszeit plus 35 Tage; die globale Standardaufbewahrung bleibt einstellbar und gilt für künftige Abschlüsse.
 - Abgeschlossene Veranstaltungen stehen ausschließlich in **Optionen → Veranstaltungen**, mit deutlich angezeigtem Datum und Uhrzeit. Aufklappen zeigt Umsatz, Bestellungen und Notizen. Inhaltliche Änderungen sind gesperrt; Titel und Löschdatum bleiben änderbar. Es gibt keine Veranstaltungs-Versionen mehr.

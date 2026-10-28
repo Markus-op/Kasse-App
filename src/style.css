@@ -45,3 +45,8 @@
 @media(orientation:landscape){.offer-card .quantity{width:100%}.offer-actions{align-self:flex-end}.offer-card{container-type:inline-size}}
 @container(max-width:100px){.offer-card .offer-price{font-size:16px}.offer-card .quantity output{font-size:24px}.offer-card .offer-amount{gap:1px}.offer-description strong{font-size:16px}}
 @media(orientation:portrait) and (max-height:560px){.offer-card .quantity-minus{width:36px;height:32px}.offer-description strong{font-size:16px}}
+
+.offer-drag-preview{position:fixed;z-index:10000;pointer-events:none;display:flex;align-items:center;gap:14px;padding:14px 18px;min-height:72px;background:#fffefb;color:#243c33;border-radius:12px;box-shadow:0 12px 32px #143e3540;outline:2px solid #39765c;transform:rotate(-1deg)}
+.offer-drag-preview img{width:48px;height:48px;object-fit:contain}.offer-drag-preview>div{display:flex;flex-direction:column;gap:5px}.offer-drag-preview strong{font-size:17px}.offer-drag-preview>div>span{font-size:16px;color:var(--muted)}.drag-grip{font-size:28px;color:var(--green)}
+.offer-setting-row.is-dragging{opacity:.35}.offer-setting-row.drop-target{background:#e3efdc;box-shadow:inset 0 -3px #39765c;border-radius:8px}
+@media(orientation:landscape){.offer-actions{align-self:center}}

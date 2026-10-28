@@ -80,7 +80,7 @@ test('notes only at top, numeric keyboard arrows never go below zero', async ({ 
   await expect(page.getByLabel('Helfer', { exact: true })).toHaveValue('3');
 });
 
-test('offers: collapsed list, drag sorting, keyboard sorting, no image and deletion', async ({ page }) => {
+test('offers: collapsed list, drag sorting, no image and deletion', async ({ page }) => {
   await page.goto('/'); await navigate(page, 'Optionen');
   await expect(page.locator('.offers-settings')).not.toHaveAttribute('open', '');
   await expect(page.getByText('Deine Kasse als App', { exact: true })).toHaveCount(0);
@@ -89,8 +89,7 @@ test('offers: collapsed list, drag sorting, keyboard sorting, no image and delet
   const rows = page.locator('.offer-setting-row');
   await rows.first().dragTo(rows.nth(2));
   await expect(rows.nth(2)).toHaveAttribute('data-offer-id', 'clubkarte');
-  await page.getByRole('button', { name: 'Clubkarte nach oben' }).click();
-  await expect(rows.nth(1)).toHaveAttribute('data-offer-id', 'clubkarte');
+  await expect(page.getByRole('button', { name: /nach oben|nach unten/ })).toHaveCount(0);
   await page.getByRole('button', { name: 'Neues Angebot' }).click();
   await page.getByLabel('Titel', { exact: true }).fill('Kuchen');
   await page.getByLabel('Preis in €').fill('2,30');
@@ -223,7 +222,12 @@ test('offers can be reordered by touch using the drag handle', async ({ browser 
     const point = { x: source!.x + source!.width / 2, y: source!.y + source!.height / 2 };
     await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
     await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: point.x, y: target!.y + target!.height / 2 }] });
+    await expect(page.locator('.offer-drag-preview')).toBeVisible();
+    await expect(page.locator('.offer-drag-preview')).toContainText('Clubkarte');
+    await expect(page.locator('.offer-drag-preview img')).toBeVisible();
+    await expect(page.locator('[data-offer-id=clubkarte]')).toHaveClass(/is-dragging/);
     await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await expect(page.locator('.offer-drag-preview')).toHaveCount(0);
     await expect(page.locator('.offer-setting-row').nth(2)).toHaveAttribute('data-offer-id', 'clubkarte');
     await session.detach();
   } finally { await context.close(); }
