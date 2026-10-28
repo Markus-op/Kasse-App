@@ -34,7 +34,7 @@ test('cash register: order, correction, individual expiry and read-only archive'
   await navigate(page, 'Kasse');
   await page.getByRole('button', { name: 'Notizen', exact: true }).click();
   await page.getByLabel('Helfer', { exact: true }).fill('4');
-  await page.getByRole('button', { name: 'Speichern', exact: true }).click();
+  await page.getByRole('button', { name: 'Schließen', exact: true }).click();
   const expiry = new Date(Date.now() + 50 * 86400000).toISOString().slice(0, 16);
   await closeEvent(page, expiry);
   await expect(page.locator('.events-settings')).not.toHaveAttribute('open', '');
@@ -62,6 +62,7 @@ test('notes only at top, numeric keyboard arrows never go below zero', async ({ 
   await expect(page.getByRole('button', { name: 'Notizen', exact: true })).toHaveCount(1);
   await page.getByRole('button', { name: 'Notizen', exact: true }).click();
   const input = page.getByLabel('Helfer', { exact: true });
+  await expect(page.getByRole('dialog').getByRole('button', { name: /Speichern|Abbrechen/ })).toHaveCount(0);
   await input.fill('0'); await input.press('ArrowDown'); await expect(input).toHaveValue('0');
   await input.press('ArrowUp'); await expect(input).toHaveValue('1');
   await page.getByRole('button', { name: 'Helfer erhöhen', exact: true }).click(); await expect(input).toHaveValue('2');
@@ -69,15 +70,20 @@ test('notes only at top, numeric keyboard arrows never go below zero', async ({ 
   await page.getByRole('button', { name: 'Helfer verringern', exact: true }).click(); await expect(input).toHaveValue('0');
   await expect(page.getByRole('button', { name: 'Helfer verringern', exact: true })).toBeDisabled();
   await input.fill('-3'); await expect(input).toHaveValue('0');
-  await page.getByRole('button', { name: 'Speichern', exact: true }).click();
+  await page.getByRole('button', { name: 'Schließen', exact: true }).click();
   await navigate(page, 'Verlauf');
   await page.getByRole('banner').getByRole('button', { name: 'Notizen', exact: true }).click();
   await expect(page.getByLabel('Helfer', { exact: true })).toHaveValue('0');
   await page.getByLabel('Helfer', { exact: true }).fill('3');
-  await page.getByRole('button', { name: 'Speichern', exact: true }).click();
+  await page.getByLabel('Sonstiges', { exact: true }).fill('Direkt gespeichert');
+  const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('kasse.app.v1')!).draftNotes);
+  expect(saved.find((note: any) => note.id === 'helpers').value).toBe(3);
+  expect(saved.find((note: any) => note.id === 'other').value).toBe('Direkt gespeichert');
+  await page.getByRole('button', { name: 'Schließen', exact: true }).click();
   await navigate(page, 'Kasse');
   await page.reload(); await page.getByRole('button', { name: 'Notizen', exact: true }).click();
   await expect(page.getByLabel('Helfer', { exact: true })).toHaveValue('3');
+  await expect(page.getByLabel('Sonstiges', { exact: true })).toHaveValue('Direkt gespeichert');
 });
 
 test('offers: collapsed list, drag sorting, no image and deletion', async ({ page }) => {
