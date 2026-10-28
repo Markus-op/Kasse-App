@@ -35,7 +35,7 @@ test('offline navigation and assets return cached responses; unrelated requests 
   let intercepted = false;
   w.events.get('fetch')({ request: { method: 'POST', url: 'https://kasse.example/', mode: 'cors' }, respondWith: () => intercepted = true }); assert.equal(intercepted, false);
 });
-test('build hash changes when images change and URL-encodes filenames', async () => {
+test('build hash covers worker behavior and images and URL-encodes filenames', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'kasse-sw-'));
   try {
     await mkdir(join(dir, 'dist/Bilder'), { recursive: true }); await mkdir(join(dir, 'scripts'));
@@ -43,7 +43,11 @@ test('build hash changes when images change and URL-encodes filenames', async ()
     await buildServiceWorker(dir); const first = await readFile(join(dir, 'dist/sw.js'), 'utf8');
     assert.ok(first.includes('/Bilder/Mein%20Bild.svg'));
     await buildServiceWorker(dir); assert.equal(await readFile(join(dir, 'dist/sw.js'), 'utf8'), first);
+    await writeFile(join(dir, 'scripts/sw-template.js'), template + '\n// Updated worker behavior\n');
+    await buildServiceWorker(dir);
+    const workerUpdate = await readFile(join(dir, 'dist/sw.js'), 'utf8');
+    assert.notEqual(workerUpdate.split('\n')[0], first.split('\n')[0]);
     await writeFile(join(dir, 'dist/Bilder/Mein Bild.svg'), '<svg>updated</svg>');
-    await buildServiceWorker(dir); assert.notEqual((await readFile(join(dir, 'dist/sw.js'), 'utf8')).split('\n')[0], first.split('\n')[0]);
+    await buildServiceWorker(dir); assert.notEqual((await readFile(join(dir, 'dist/sw.js'), 'utf8')).split('\n')[0], workerUpdate.split('\n')[0]);
   } finally { await rm(dir, { recursive: true, force: true }); }
 });

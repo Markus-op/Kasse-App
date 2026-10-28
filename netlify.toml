@@ -2,6 +2,7 @@
   command = "npm run build"
   publish = "dist"
 [build.environment]
+  NPM_FLAGS = "--no-audit --no-fund"
   NODE_VERSION = "24"
 [[headers]]
   for = "/sw.js"

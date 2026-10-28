@@ -9,13 +9,13 @@ async function files(dir) {
 export async function buildServiceWorker(root = process.cwd()) {
   const output = join(root, 'dist');
   const assets = (await files(output)).filter(p => relative(output, p) !== 'sw.js').sort();
-  const hash = createHash('sha256'), urls = ['/'];
+  const source = await readFile(join(root, 'scripts/sw-template.js'), 'utf8');
+  const hash = createHash('sha256').update(source), urls = ['/'];
   for (const file of assets) {
     const path = '/' + relative(output, file).split(/[\\/]/).map(encodeURIComponent).join('/');
     hash.update(path).update(await readFile(file)); urls.push(path);
   }
   const version = hash.digest('hex').slice(0, 16);
-  const source = await readFile(join(root, 'scripts/sw-template.js'), 'utf8');
   await writeFile(join(output, 'sw.js'), `const CACHE = 'kasse-${version}';\nconst ASSETS = ${JSON.stringify(urls)};\n` + source);
   return { version, files: urls.length };
 }

@@ -118,7 +118,7 @@ export function validateState(value: unknown): State {
   const date = (v: unknown) => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v) && Number.isFinite(Date.parse(v));
   const int = (v: unknown, max = MAX_CENTS) => Number.isSafeInteger(v) && (v as number) >= 0 && (v as number) <= max;
   const arr = (v: unknown): v is any[] => Array.isArray(v) && v.length <= 100000;
-  const unique = (v: any[]) => new Set(v.map(x => x.id)).size === v.length;
+  const unique = (v: any[]) => v.every(x => obj(x) && ident(x.id)) && new Set(v.map(x => x.id)).size === v.length;
   const image = (v: unknown) => typeof v === 'string' && /^[^/\\.][^/\\]*\.(svg|png|jpe?g|webp|gif|avif)$/i.test(v) && v.length <= 255;
   const note = (v: unknown) => obj(v) && ident(v.id) && str(v.label) && (v.type === 'text' ? str(v.value) : v.type === 'boolean' ? typeof v.value === 'boolean' : v.type === 'number' && (v.value === '' || typeof v.value === 'number' && Number.isFinite(v.value) && v.value >= 0));
   const notes = (v: unknown) => arr(v) && v.every(note) && unique(v);

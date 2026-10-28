@@ -86,3 +86,12 @@ test('atomic persistence: denied or full storage propagates; broken data is not 
   assert.throws(() => persist({ setItem() { throw new Error('QuotaExceededError'); } }, s));
   memory.set(KEY, '{broken'); assert.throws(() => load(storage)); assert.equal(memory.get(KEY), '{broken');
 });
+
+test('malformed nested backup entries produce a validation error', () => {
+  for (const field of ['offers', 'templates']) {
+    const s = closed(); s.settings[field] = [null];
+    assert.throws(() => validateState(s), /Ungültige oder nicht unterstützte Sicherungsdatei/);
+  }
+  const s = closed(); s.events[0].versions = [null];
+  assert.throws(() => validateState(s), /Ungültige oder nicht unterstützte Sicherungsdatei/);
+});

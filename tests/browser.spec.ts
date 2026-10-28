@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('kassieren, korrigieren, archivieren und wiederherstellen', async ({ page }) => {
   await page.goto('/');
+  await expect(page.locator('input[type=file]')).toBeHidden();
   await page.getByRole('button', { name: /^Nachos/ }).click();
   await page.getByRole('button', { name: /^Popcorn/ }).click();
   await expect(page.locator('.grand-total')).toContainText('1,50');
@@ -96,4 +97,18 @@ test('screenshots', async ({ page }, testInfo) => {
   await page.screenshot({ path: testInfo.outputPath('kasse-desktop.png'), fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: testInfo.outputPath('kasse-mobile.png'), fullPage: true });
+});
+
+test('production entry point and PWA assets are served', async ({ request }) => {
+  const html = await request.get('/index.html');
+  expect(html.ok()).toBe(true);
+  const content = await html.text();
+  expect(content).toContain('<div id="root"></div>');
+  const script = content.match(/src="([^" ]+\.js)"/);
+  expect(script).not.toBeNull();
+  for (const path of [script![1], '/manifest.webmanifest', '/sw.js', '/Bilder/Liste.md', '/icon-192.png']) {
+    const response = await request.get(path);
+    expect(response.ok(), path).toBe(true);
+    expect(response.headers()['content-type'], path).not.toContain('text/html');
+  }
 });

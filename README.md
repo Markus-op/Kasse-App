@@ -7,7 +7,7 @@ Eine lokale Kasse für Veranstaltungen: große Angebotskacheln, nachvollziehbare
 Node.js 24 und npm verwenden:
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
@@ -20,6 +20,17 @@ npm run preview  # Produktionsbuild lokal ansehen
 ```
 
 ## Netlify
+
+Die veröffentlichbare Einstiegsdatei ist `dist/index.html` (kleingeschrieben).
+Die `index.html` im Repository ist der Vite-Einstieg und wird beim Build zusammen
+mit JavaScript, CSS, Bildern, Manifest und Service Worker nach `dist/` verarbeitet.
+In Netlify den Branch `main`, das Repository-Hauptverzeichnis als Basis,
+Build-Befehl `npm run build` und Veröffentlichungsordner `dist` verwenden.
+Kein ZIP-Archiv und keine einzelne Quell-HTML-Datei als fertige Website hochladen.
+Für manuelles Deployment zuerst `npm ci && npm run build` ausführen und den
+vollständigen Inhalt von `dist/` bereitstellen. Die Header und Weiterleitungen
+in `netlify.toml` gelten bei Git-basierten Netlify-Builds.
+
 
 Repository in Netlify verbinden, Build `npm run build`, Ausgabeordner `dist`. Die Datei `netlify.toml` enthält diese Vorgaben, Node-Version, Sicherheits- und Cache-Header. Keine Umgebungsvariablen oder Serverfunktionen erforderlich. PWA-Installation benötigt HTTPS oder localhost.
 
