@@ -15,3 +15,18 @@
 .offer-card{cursor:pointer}.offer-card .quantity-minus{background:#8d4435;color:#fff}.offer-card .quantity-minus:disabled{background:#e2c9c0;color:#63392e;opacity:1}.offer-card .quantity-plus{background:#245548;color:#fff}
 
 .topbar-left{display:flex;align-items:center;gap:14px}.offer-card .quantity output{font-size:clamp(24px,2.6vw,30px);font-weight:750;line-height:1.1;font-variant-numeric:tabular-nums}.offer-card .quantity output.is-zero{opacity:.45}.offer-card .quantity output[data-digits="3"]{font-size:22px}.offer-card .quantity output[data-digits="4"]{font-size:18px}
+
+/* Keep quantity and unit price together as “3 × 1,00 €”. */
+.offer-card{grid-template-columns:68px minmax(0,1fr) auto}
+.offer-card.no-image{grid-template-columns:minmax(0,1fr) auto}
+.offer-card .quantity{display:flex;gap:12px;width:auto;min-width:0}
+.offer-amount{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.offer-actions{display:flex;align-items:center;gap:5px}
+.offer-card .multiplication{font-size:18px;min-width:0;font-weight:400;color:var(--muted)}
+.offer-card .offer-price{font-size:clamp(17px,2vw,24px)}
+.offer-image img{max-height:92px}
+@media(orientation:landscape){.offer-card .quantity{flex-direction:column;gap:10px}.offer-image{max-height:260px}.offer-image img{max-height:240px}.offer-card .offer-amount{gap:3px}.offer-card .quantity output{min-width:0}.offer-actions{gap:12px}}
+@media(max-width:600px) and (orientation:portrait){.offer-card{grid-template-columns:44px minmax(0,1fr) auto;gap:6px}.offer-card.no-image{grid-template-columns:minmax(0,1fr) auto}.offer-card .quantity{gap:8px}.offer-card .quantity output{min-width:0}.offer-amount{gap:3px}.offer-actions{gap:4px}.offer-image img{max-height:68px}}
+@media(orientation:landscape) and (max-height:500px){.offer-image img{max-height:88px}.offer-card .quantity{gap:5px}.offer-card .offer-price{font-size:16px}.offer-card .quantity output{font-size:24px}.offer-card .multiplication{font-size:15px}.offer-actions{gap:10px}}
+@media(max-width:360px) and (orientation:portrait){.offer-card{grid-template-columns:36px minmax(0,1fr) auto;gap:4px}.offer-card.no-image{grid-template-columns:minmax(0,1fr) auto}.offer-card .quantity{gap:5px}.offer-card .offer-price{font-size:16px}.offer-amount{gap:2px}.offer-actions{gap:3px}.offer-card .multiplication{font-size:15px}}
+@media(orientation:portrait) and (max-height:560px){.offer-image img{max-height:40px}}
