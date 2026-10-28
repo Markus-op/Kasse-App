@@ -1,0 +1,7 @@
+- nachos.svg
+- popcorn.svg
+- snack.svg
+- getraenk.svg
+- bundle.svg
+- eintritt.svg
+- clubkarte.svg

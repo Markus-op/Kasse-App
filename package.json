@@ -1,0 +1,29 @@
+{
+  "name": "kasse-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build && node scripts/build-sw.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node tests/model.test.mjs && node tests/sw.test.mjs",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "lucide-react": "0.468.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "5.9.3",
+    "vite": "7.1.12",
+    "@vitejs/plugin-react": "5.0.4",
+    "@playwright/test": "1.56.1"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}
