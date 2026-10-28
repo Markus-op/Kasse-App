@@ -66,8 +66,14 @@ test('notes only at top, numeric keyboard arrows never go below zero', async ({ 
   await input.press('ArrowUp'); await expect(input).toHaveValue('1');
   await input.fill('-3'); await expect(input).toHaveValue('0');
   await page.getByRole('button', { name: 'Speichern', exact: true }).click();
-  await page.reload(); await page.getByRole('button', { name: 'Notizen', exact: true }).click();
+  await navigate(page, 'Verlauf');
+  await page.getByRole('banner').getByRole('button', { name: 'Notizen', exact: true }).click();
   await expect(page.getByLabel('Helfer', { exact: true })).toHaveValue('0');
+  await page.getByLabel('Helfer', { exact: true }).fill('3');
+  await page.getByRole('button', { name: 'Speichern', exact: true }).click();
+  await navigate(page, 'Kasse');
+  await page.reload(); await page.getByRole('button', { name: 'Notizen', exact: true }).click();
+  await expect(page.getByLabel('Helfer', { exact: true })).toHaveValue('3');
 });
 
 test('offers: collapsed list, drag sorting, keyboard sorting, no image and deletion', async ({ page }) => {

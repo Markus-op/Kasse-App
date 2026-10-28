@@ -13,3 +13,5 @@
 @media(orientation:portrait) and (max-height:560px){.topbar{height:42px}.page-kasse .workspace{padding-bottom:54px}.navigation{height:54px}.offer-grid{grid-template-rows:repeat(var(--offer-count),minmax(36px,1fr));gap:4px}.offer-card{min-height:36px;padding-top:2px;padding-bottom:2px}.offer-image img{max-height:36px}.quantity button{height:30px}.checkout-bar{min-height:70px;padding:5px 2px}.checkout{min-height:42px}.page-kasse .toast{bottom:130px}}
 
 .offer-card{cursor:pointer}.offer-card .quantity-minus{background:#8d4435;color:#fff}.offer-card .quantity-minus:disabled{background:#e2c9c0;color:#63392e;opacity:1}.offer-card .quantity-plus{background:#245548;color:#fff}
+
+.topbar-left{display:flex;align-items:center;gap:14px}.offer-card .quantity output{font-size:clamp(24px,2.6vw,30px);font-weight:750;line-height:1.1;font-variant-numeric:tabular-nums}.offer-card .quantity output.is-zero{opacity:.45}.offer-card .quantity output[data-digits="3"]{font-size:22px}.offer-card .quantity output[data-digits="4"]{font-size:18px}

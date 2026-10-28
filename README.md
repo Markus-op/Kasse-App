@@ -30,7 +30,7 @@ Der Build erzeugt `dist/index.html` mit gehashten JavaScript-/CSS-Dateien, Bilde
 - Hochformat: Bild, Titel, Einzelpreis und Menge in einer Zeile. Querformat: Angebote als nebeneinanderliegende Spalten. Die Bestellsumme und **Bezahlt & speichern** stehen dauerhaft unten.
 - Bei sieben Standardangeboten ist ab 320 × 480 im Hochformat bzw. 568 × 320 im Querformat kein Scrollen nötig. Bei vielen eigenen Angeboten scrollt nur die Angebotsliste, der Abschluss bleibt sichtbar.
 - Antippen fügt einen Artikel hinzu; Minus entfernt ihn wieder. Der Gesamtpreis rechnet in Cent. **Bezahlt & speichern** dokumentiert eine bereits erfolgte Zahlung; es gibt keine Zahlungsanbindung.
-- **Notizen** öffnet oben die Veranstaltungsnotizen. Zahlen lassen sich mit den Eingabepfeilen ändern und können nicht negativ werden. Vor der ersten Bestellung gespeicherte Notizen werden in die nächste Veranstaltung übernommen.
+- **Notizen** öffnet oben in Kasse und Verlauf dieselben Veranstaltungsnotizen. Zahlen lassen sich mit den Eingabepfeilen ändern und können nicht negativ werden. Vor der ersten Bestellung gespeicherte Notizen werden in die nächste Veranstaltung übernommen.
 - Die erste bezahlte Bestellung eröffnet eine Veranstaltung. Sie bleibt auch über Mitternacht offen. Alle zwei Stunden erscheint bei aktiver Nutzung eine Nachfrage.
 - Im **Verlauf** stehen ausschließlich Bestellungen der offenen Veranstaltung. Dort sind Korrekturen und Stornierungen mit Rückzahlungs-/Nachforderungsbetrag möglich. Bestellrevisionen bleiben nachvollziehbar, bis der Inhalt beim Kassenschluss schreibgeschützt wird.
 
