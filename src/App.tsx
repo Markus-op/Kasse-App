@@ -152,11 +152,11 @@ export default function App() {
         <div className="offer-grid" style={{ '--offer-count': Math.max(1, cashOffers.length) } as React.CSSProperties}>
           {cashOffers.map((offer, i) => {
             const quantity = state.cart.filter(item => item.offerId === offer.id && item.price === offer.price && item.title === offer.title).reduce((sum, item) => sum + item.quantity, 0);
-            return <article className={'offer-card tone-' + i % 7 + (quantity ? ' in-cart' : '') + (!offer.image ? ' no-image' : '')} key={`${offer.id}-${offer.price}-${offer.title}`}>
+            return <article className={'offer-card tone-' + i % 7 + (quantity ? ' in-cart' : '') + (!offer.image ? ' no-image' : '')} key={`${offer.id}-${offer.price}-${offer.title}`} onClick={e => { if (offer.available && !(e.target as HTMLElement).closest('button')) setOfferQuantity(offer, 1); }}>
               {offer.image && <button className="offer-image" disabled={!offer.available} onClick={() => setOfferQuantity(offer, 1)} aria-label={`${offer.title} hinzufügen`}><Picture name={offer.image} /></button>}
               <button className="offer-description" disabled={!offer.available} onClick={() => setOfferQuantity(offer, 1)} aria-label={offer.title}><strong>{offer.title}</strong></button>
               <span className="offer-price">{money(offer.price)}</span>
-              <div className="quantity"><button disabled={!quantity} onClick={() => setOfferQuantity(offer, -1)} aria-label={`${offer.title} verringern`}><Minus size={18} /></button><output aria-label={`${offer.title} Anzahl`}>{quantity}</output><button onClick={() => setOfferQuantity(offer, 1)} disabled={!offer.available} aria-label={`${offer.title} erhöhen`}><Plus size={18} /></button></div>
+              <div className="quantity"><button className="quantity-minus" disabled={!quantity} onClick={() => setOfferQuantity(offer, -1)} aria-label={`${offer.title} verringern`}><Minus size={22} strokeWidth={3} /></button><output aria-label={`${offer.title} Anzahl`}>{quantity}</output><button className="quantity-plus" onClick={() => setOfferQuantity(offer, 1)} disabled={!offer.available} aria-label={`${offer.title} erhöhen`}><Plus size={18} /></button></div>
             </article>;
           })}
           {!cashOffers.length && <Empty title="Keine aktiven Angebote" text="Lege in den Optionen Angebote an oder aktiviere sie." />}

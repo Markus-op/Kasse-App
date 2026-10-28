@@ -218,3 +218,17 @@ test('offers can be reordered by touch using the drag handle', async ({ browser 
     await session.detach();
   } finally { await context.close(); }
 });
+
+test('offer taps add once and prominent minus only subtracts, never below zero', async ({ page }) => {
+  await page.goto('/');
+  const row = page.locator('.offer-card').filter({ has: page.getByRole('button', { name: 'Nachos', exact: true }) });
+  const count = page.getByLabel('Nachos Anzahl', { exact: true });
+  const minus = page.getByRole('button', { name: 'Nachos verringern', exact: true });
+  await expect(minus).toBeVisible(); await expect(minus).toBeDisabled();
+  await row.locator('.offer-price').click(); await expect(count).toHaveText('1');
+  await page.getByRole('button', { name: 'Nachos', exact: true }).click(); await expect(count).toHaveText('2');
+  await page.getByRole('button', { name: 'Nachos erhöhen', exact: true }).click(); await expect(count).toHaveText('3');
+  await minus.click(); await expect(count).toHaveText('2');
+  await minus.click(); await minus.click(); await expect(count).toHaveText('0');
+  await expect(minus).toBeDisabled(); await expect(page.locator('.grand-total')).toContainText('0,00');
+});
